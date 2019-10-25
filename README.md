@@ -12,8 +12,22 @@ At the moment the following distributions are support:
 * [Alpine Linux](https://alpinelinux.org/) amd64
 * [Alpine Linux](https://alpinelinux.org/) armhf (arm 32bit)
 
-The included build.sh can be used to build the required Docker-Image.
+The included `build.sh` can be used to build the required Docker-Image.
 
 ## Nextcloud on a Raspberry Pi
 
 The build for armhf can be used on a [Raspberry Pi](https://www.raspberrypi.org/). A Raspberry Pi 3 or 4 with at least 2GB Memory is recommended.
+
+## FAQ's
+
+### Where do I have to mount the docroot to?
+
+The Nextcloud docroot must be mounted to `/application/src`.
+
+### How to overwrite PHP settings?
+
+If it is required to overwrite PHP settings, create a custom configuration file ([php.ini](https://www.php.net/manual/en/ini.list.php) style) which contains the required configurations and mount it with `docker run` to `/etc/php7/conf.d/zzz-override.ini`.
+
+### Why there is PHP Opcache file blacklist?
+
+The purpose of this file blacklist is quite simple. When you are using `occ` (see [Nextcloud OCC](https://docs.nextcloud.com/server/15/admin_manual/configuration_server/occ_command.html)) it could happen that your Nextcloud `config/config.php` is modified, for example if you turning maintenance mode on/off with `occ maintenance:mode --[on|off]`. But if the config-file is in Opcache, the maintenance mode setting wouldn't have any effect until your restart/reload the PHP-FPM (or reset the Opcache through other ways).
