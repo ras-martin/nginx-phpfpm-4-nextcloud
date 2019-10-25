@@ -73,6 +73,7 @@ COPY docker/nginx/default-site.conf /etc/nginx/conf.d/default.conf
 COPY docker/php/php.ini /etc/php7/php.ini
 COPY docker/php/php-fpm.conf /etc/php7/php-fpm.conf
 COPY docker/php/pool.conf /etc/php7/php-fpm.d/www.conf
+COPY docker/php/opcache.blacklist /etc/php7/conf.d/opcache.blacklist
 
 # Entrypoint
 COPY docker/entrypoint.sh /
