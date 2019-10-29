@@ -33,6 +33,6 @@ The Nextcloud docroot must be mounted to `/application/src`.
 
 If it is required to overwrite PHP settings, create a custom configuration file ([php.ini](https://www.php.net/manual/en/ini.list.php) style) which contains the required configurations and mount it with `docker run` to `/etc/php7/conf.d/zzz-override.ini`.
 
-### Why there is PHP Opcache file blacklist?
+### Why there is a PHP Opcache file blacklist?
 
 The purpose of this file blacklist is quite simple. When you are using `occ` (see [Nextcloud OCC](https://docs.nextcloud.com/server/15/admin_manual/configuration_server/occ_command.html)) it could happen that your Nextcloud `config/config.php` is modified, for example if you turning maintenance mode on/off with `occ maintenance:mode --[on|off]`. But if the config-file is in Opcache, the maintenance mode setting wouldn't have any effect until your restart/reload the PHP-FPM (or reset the Opcache through other ways).
