@@ -10,6 +10,8 @@ usage() {
   >&2 echo "Available distros:"
   >&2 echo "    alpine-3.10:amd64 ..... Alpine Linux v3.10, architecture amd64: uses PHP 7.3, Nginx 1.16"
   >&2 echo "    alpine-3.10:armhf ..... Alpine Linux v3.10, architecture armhf (arm 32bit): PHP 7.3, Nginx 1.16"
+  >&2 echo "    alpine-3.12:amd64 ..... Alpine Linux v3.12, architecture amd64: uses PHP 7.3, Nginx 1.18"
+  >&2 echo "    alpine-3.12:armhf ..... Alpine Linux v3.12, architecture armhf (arm 32bit): PHP 7.3, Nginx 1.18"
   exit 1
 }
 
@@ -23,7 +25,6 @@ build() {
     then
         docker build \
             --rm \
-            --compress \
             --no-cache \
             --pull \
             --tag $DOCKER_REPOSITORY:$DOCKER_TAG \
@@ -38,6 +39,8 @@ build() {
 case "$1" in
   alpine-3.10:amd64) build "alpine-3.10:amd64" ;;
   alpine-3.10:armhf) build "alpine-3.10:armhf" ;;
-  all) build "alpine-3.10:amd64 alpine-3.10:armhf" ;;
+  alpine-3.12:amd64) build "alpine-3.12:amd64" ;;
+  alpine-3.12:armhf) build "alpine-3.12:armhf" ;;
+  all) build "alpine-3.10:amd64 alpine-3.10:armhf alpine-3.12:amd64 alpine-3.12:armhf" ;;
   *) usage ;;
 esac
